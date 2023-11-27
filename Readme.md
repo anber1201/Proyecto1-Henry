@@ -153,7 +153,7 @@ Acá podemos observar la cantidad de horas jugadas por género en cuanto a una s
 
 
 # Autor:
-*** Gerardo José Cortijo Regalo ***
+***Gerardo José Cortijo Regalo***
 
 *Opciones de contacto*
 
