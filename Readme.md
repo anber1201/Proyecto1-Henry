@@ -21,7 +21,7 @@ En nuestro archivo Requeriments.text, se dejaron los nombres de las librerias ut
 - [Sentiment_Analysis](#Sentiment_Analysis)
 - [Australian_user_items](#Australian_user_items)
 - [Video](#video)
-- [Autor:](#Autor:)
+- [Autor:](#Autor)
 
 
 # Output_steam_games
@@ -137,7 +137,7 @@ items_count           0
 steam_id              0
 user_url              0
 
-![Descripción de la imagen](.\Graficos\nulosdspitems.png)
+![Descripción de la imagen](./Graficos/nulosdspitems.png)
 
 
 Al observar que había user_id que no poseía juegos (112 user_id diferentes) elegí eliminar directamente esos nulos con un dropna 
@@ -147,12 +147,19 @@ Al observar que había user_id que no poseía juegos (112 user_id diferentes) el
 Acá podemos observar la cantidad de horas jugadas por género en cuanto a una suma total de todos los usuarios
 
 
-![Descripción de la imagen](./Graficos\Horasxgenero.png)
+![Descripción de la imagen](./Graficos/Horasxgenero.png)
 
 Éste análisis de inicio, tanto como la parte de desarrollo de nuestros datos en crudo y nuestro EDA, contextualizan todos los objetivos presentados por la empresa Steam Games, esperamos haya sido de su agrado.
 
 
 # Autor:
 *** Gerardo José Cortijo Regalo ***
- +[GitHub](https://github.com/Gerard175dnb)
+
+*Opciones de contacto*
+
+
++ [GitHub](https://github.com/Gerard175dnb)
+
+
+
 + [Linkedin](https://www.linkedin.com/in/gerardocor175/)
