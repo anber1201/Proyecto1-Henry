@@ -78,7 +78,6 @@ Tambien observamos la columna recommend para comparar
 
 Para nuestro análisis de sentimiento, utilizamos la libreria NLTK, la cual, con sentiment_vader, explora las reviews analizando el texto y devuelve valores como 0,1,2, en los cuales 2 es positivo, 1 es neutral(el cual tambien puede ser contemplado para usuarios que no dejaron reseña) y 0 para negativo, añadiendo la columna "sentiment_analysis" para nuestro dataset
 
-![Descripción de la imagen](./Graficos/sentiment.png)
 Acá podemos observar la cantidad de sentimientos en el total de reviews, siendo más positivos que negativos y neutros
 
 ***sentiment_analysis***
