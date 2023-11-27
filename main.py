@@ -20,12 +20,13 @@ def index():
 def PlayTimeGenre(genero: str):
     df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
     df_filtered = df_final[df_final['genres'] == genero]
+    if df_filtered.empty:
+        return {"message": f"No data found for genre: {genero}"}
     playtime_sum = df_filtered.groupby('release_date')['playtime_forever'].sum() 
     year_max_playtime = playtime_sum.idxmax()
     max_playtime = playtime_sum.max()
     del df_final, df_filtered, playtime_sum
     return {"Año de lanzamiento con más horas jugadas para el género: " + genero : str(year_max_playtime), "Horas jugadas": str(max_playtime)}
-
 
 @app.get("/UserForGenre/{genero}")
 async def UserForGenre(genero: str):
