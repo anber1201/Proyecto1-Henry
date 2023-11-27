@@ -107,6 +107,8 @@ Acá podemos observar la cantidad de sentimientos en el total de reviews, siendo
 ***1  :  13062,***
 ***0   : 12747***
 
+![Descripción de la imagen](./Graficos/Sentimientos.png)
+
 Seguido a lo realizado, procedemos a eliminar duplicados y nulos, que para nuestra grata sorpresa eran bastante pocos y pudimos continuar al siguiente dataset, obteniendo user_reviews de esta manera:
 ## 'user_id',	'user_url',	'item_id'	,'recommend',	'year',	'sentiment_analysis'
 
