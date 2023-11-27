@@ -207,6 +207,7 @@ Ejemplo de retorno: {'Valve' : [Negative = 182, Neutral = 120, Positive = 278]}
 
 + [GitHub](https://github.com/Gerard175dnb)
 
-
++ # video: 
++ [Youtube](https://youtu.be/CeHRjuAz7b8)
 
 + [Linkedin](https://www.linkedin.com/in/gerardocor175/)
