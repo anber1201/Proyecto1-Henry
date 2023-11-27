@@ -8,15 +8,7 @@ import pickle
 from funciones import get_recommendation, get_playtime_by_genre , get_user_by_genre, get_users_recommend, sentiment_analysis, get_worst_developer
 
 
-
-
-
-
-
-
-
 app = FastAPI()
-
 
 @app.get("/")
 def index():

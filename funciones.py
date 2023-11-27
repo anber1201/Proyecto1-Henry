@@ -21,22 +21,6 @@ def get_playtime_by_genre(genero: str):
     return {"Año de lanzamiento con más horas jugadas para el género: " + genero : str(year_max_playtime), "Horas jugadas": str(max_playtime)}
 
 
-def get_recommendation(item_id: int):
-    df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
-    df_final = df_final[['item_id', 'user_id', 'recommend']]  # usamos las columnas necesarias
-    sparse_matrix = csr_matrix(pd.crosstab(df_final['item_id'], df_final['user_id'], values=df_final['recommend'], aggfunc='sum').fillna(0))
-    similitud = cosine_similarity(sparse_matrix)
-    indices_similares = {item_id: similitud[item_index].argsort()[-6:-1][::-1] for item_index, item_id in enumerate(df_final['item_id'].unique().tolist())}
-    with open('indices_similares.pkl', 'wb') as f:
-        pickle.dump(indices_similares, f)
-    with open('indices_similares.pkl', 'rb') as f:
-        indices_similares = pickle.load(f)
-    similar_items = [df_final['item_id'].unique().tolist()[i] for i in indices_similares[item_id]]
-    del df_final, sparse_matrix, similitud, indices_similares
-    return similar_items
-
-
-
 def get_user_by_genre(genero: str):
     try:
         df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
@@ -82,3 +66,20 @@ def sentiment_analysis(developer: str):
     result = {developer : ['Negative = ' + str(sentiment_count.get(0, 0)), 'Neutral = ' + str(sentiment_count.get(1, 0)), 'Positive = ' + str(sentiment_count.get(2, 0))]}
     del ReviewsxGames, df_filtered, sentiment_count
     return result
+
+
+def get_recommendation(item_id: int):
+    try:
+        with open('indices_similares.pkl', 'rb') as f:
+            indices_similares = pickle.load(f)
+    except FileNotFoundError:
+        df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
+        df_final = df_final[['item_id', 'user_id', 'recommend']] 
+        sparse_matrix = csr_matrix(pd.crosstab(df_final['item_id'], df_final['user_id'], values=df_final['recommend'], aggfunc='sum').fillna(0))
+        similitud = cosine_similarity(sparse_matrix)
+        indices_similares = {item_id: similitud[item_index].argsort()[-6:-1][::-1] for item_index, item_id in enumerate(df_final['item_id'].unique().tolist())}
+        with open('indices_similares.pkl', 'wb') as f:
+            pickle.dump(indices_similares, f)
+        del df_final, sparse_matrix, similitud
+    similar_items = [df_final['item_id'].unique().tolist()[i] for i in indices_similares[item_id]]
+    return similar_items
