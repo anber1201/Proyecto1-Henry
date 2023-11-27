@@ -36,7 +36,6 @@ def get_user_by_genre(genero: str):
     
 
 
-
 def get_users_recommend(año: int):
     ReviewsxGames = pd.read_parquet('PIMLops-STEAM/df_reviewsG.parquet')
     ReviewsxGames = ReviewsxGames[['developer','year', 'recommend','item_name','sentiment_analysis']]
@@ -81,7 +80,7 @@ def get_recommendation(item_id: int):
         with open('indices_similares.pkl', 'wb') as f:
             pickle.dump(indices_similares, f)
         del sparse_matrix, similitud
-
     similar_items = [df_final['item_id'].unique().tolist()[i] for i in indices_similares[item_id]]
     del df_final
     return similar_items
+
