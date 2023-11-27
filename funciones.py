@@ -67,7 +67,7 @@ def sentiment_analysis(developer: str):
     return result
 
 
-def get_recommendation(item_id: int):
+def get_recommendation(item_name: str):
     df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
     df_final = df_final[['item_id', 'user_id', 'recommend', 'item_name']] 
     try:
@@ -81,7 +81,7 @@ def get_recommendation(item_id: int):
             pickle.dump(indices_similares, f)
         del sparse_matrix, similitud
     item_id_to_name = df_final.drop_duplicates('item_id').set_index('item_id')['item_name'].to_dict()
-    similar_items = [item_id_to_name[i] for i in indices_similares[item_id]]
+    similar_items = [item_id_to_name[i] for i in indices_similares[item_name]]
     del df_final
     return similar_items
 
