@@ -69,17 +69,19 @@ def sentiment_analysis(developer: str):
 
 
 def get_recommendation(item_id: int):
+    df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
+    df_final = df_final[['item_id', 'user_id', 'recommend']] 
     try:
         with open('indices_similares.pkl', 'rb') as f:
             indices_similares = pickle.load(f)
     except FileNotFoundError:
-        df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
-        df_final = df_final[['item_id', 'user_id', 'recommend']] 
         sparse_matrix = csr_matrix(pd.crosstab(df_final['item_id'], df_final['user_id'], values=df_final['recommend'], aggfunc='sum').fillna(0))
         similitud = cosine_similarity(sparse_matrix)
         indices_similares = {item_id: similitud[item_index].argsort()[-6:-1][::-1] for item_index, item_id in enumerate(df_final['item_id'].unique().tolist())}
         with open('indices_similares.pkl', 'wb') as f:
             pickle.dump(indices_similares, f)
-        del df_final, sparse_matrix, similitud
+        del sparse_matrix, similitud
+
     similar_items = [df_final['item_id'].unique().tolist()[i] for i in indices_similares[item_id]]
+    del df_final
     return similar_items
