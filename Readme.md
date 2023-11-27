@@ -18,6 +18,7 @@ Se realizaron algunas conversiones de tipo de dato con la extensión data wrangl
 De encontrar errores al abrir el jupyer notebook por la importacion de módulos, utilizar un entorno normal, se resolvió el problema de espacio de memoria, deployando todo desde un entorno virtual sin librerías instaladas, ya que render al realizar el BuildUp, instala las librerías necesarias.
 En nuestro archivo Requeriments.text, se dejaron los nombres de las librerias utilizadas en éste trabajo, pero cuidado, una gran instalación de librerias que no utilicemos puede derivar en fallos de memoria para render
 
+### Índice 
 
 - [Output_steam_games](#Output_steam_games)
 - [Australian_user_reviews](#Australian_user_reviews)
@@ -84,7 +85,7 @@ Luego de revisar nulos y duplicados, encontramos datos faltantes en genres, pero
 ## ***user_id	,user_url	,funny	,posted	,last_edited	,item_id	,helpful	,recommend	,review,	0***
 Luego, rellenamos la columna "year" con la media para poder sacar los valores faltantes, ésta columna es relevante para nuestro analisis y modelado futuro de datos, por lo tanto utilizamos .median en year
 
-Podemos observar con wordcloud, las palabras más utilizadas en nuestra columna review, para poder observar de manera indirecta la futura anileación de sentimientos 
+Podemos observar con wordcloud, las palabras más utilizadas en nuestra columna review, para poder observar de manera indirecta la futura alineación de sentimientos 
 
 
 ![Descripción de la imagen](./Graficos/cloud.png)
