@@ -4,8 +4,24 @@
 
 # <h1 align=center>**`Exploratory Data Analysis`**</h1>
 
-El siguiente análisis tiene como objetivo mostrar gráficamente los pasos realizados y detallados en el ETL y el EDA, por favor, para mas detalles ingresar a los archivos mencionados
+En el siguiente análisis, nos adentraremos en el desarrollo de un modelo de Machine learning (MLops), el cual debe pasar antes por un paso a paso de diferentes etapas, por ejemplo ETL, conversión de datos, análisis exploratorio de los datos y realización del modelo solicitado
 
+*Aclaraciones:* se modificó el archivo original .json, dejándolo en .parquet, para poder realizar el commit a nuestro repositorio sin problemas de memoria.
+
+Se realizaron algunas conversiones de tipo de dato con la extensión data wrangler, así como renombramiento de columnas o eliminacion de algunos datos que manualmente nos fue imposible realizar.
+
+### *Importante*
+
+De encontrar errores al abrir el jupyer notebook por la importacion de módulos, utilizar un entorno normal, se resolvió el problema de espacio de memoria, deployando todo desde un entorno virtual sin librerías instaladas, ya que render al realizar el BuildUp, instala las librerías necesarias.
+En nuestro archivo Requeriments.text, se dejaron los nombres de las librerias utilizadas en éste trabajo, pero cuidado, una gran instalación de librerias que no utilicemos puede derivar en fallos de memoria para render
+
+
+- [Output_steam_games](#Output_steam_games)
+- [Australian_user_reviews](#Australian_user_reviews)
+- [Sentiment_Analysis](#Sentiment_Analysis)
+- [Australian_user_items](#Australian_user_items)
+- [Video](#video)
+- [Autor:](#Autor:)
 
 
 # Output_steam_games
@@ -54,7 +70,7 @@ Luego de revisar nulos y duplicados, encontramos datos faltantes en genres, pero
 
 ![Descripción de la imagen](./Graficos/genres.png)
 
-# Australian User reviews
+# Australian_User_reviews
 
 
 *Columnas al abrir nuestro archivo*
@@ -74,7 +90,7 @@ Tambien observamos la columna recommend para comparar
 
 ![Descripción de la imagen](./Graficos/Recommend.png)
 
-# Sentiment Analysis 
+# Sentiment_Analysis 
 
 Para nuestro análisis de sentimiento, utilizamos la libreria NLTK, la cual, con sentiment_vader, explora las reviews analizando el texto y devuelve valores como 0,1,2, en los cuales 2 es positivo, 1 es neutral(el cual tambien puede ser contemplado para usuarios que no dejaron reseña) y 0 para negativo, añadiendo la columna "sentiment_analysis" para nuestro dataset
 
@@ -89,4 +105,54 @@ Seguido a lo realizado, procedemos a eliminar duplicados y nulos, que para nuest
 ## 'user_id',	'user_url',	'item_id'	,'recommend',	'year',	'sentiment_analysis'
 
 
-# ***Australian user items***
+# Australian_user_items
+
+Al abrir nuestro dataset, nos encontramos con las siguientes columnas: 
+*'user_id'*	*'items_count'*	*'steam_id'*	*'user_url'*	*'items'*
+
+observamos que items está anidado, por lo cual procedemos a desanidarlo y concatenarlo con nuestro dataframe original df_items, nos quedaría asi: 
+
+***'item_id'	'item_name'	'playtime_forever'	'playtime_2weeks'	'user_id'	'items_count'	'steam_id'	'user_url'***
+los cuales tienen la siguiente cantidad de nulos:
+
+item_id:               16806,
+item_name:             16806,
+playtime_2weeks:       16806,
+playtime_forever:      16806,
+user_id:             5081705,
+items_count:         5081705,
+steam_id:            5081705,
+user_url:            5081705
+
+
+
+luego de realizar los cambios pertinentes para tipos de dato de cada columna y limpiar los datos en playtime forever, eliminando jugadores que no poseen horas de juego, los cuales son irrelevantes para el analisis, nuestras columnas quedaron de esta manera:
+
+item_id             112
+item_name           112
+playtime_2weeks     112
+playtime_forever    112
+user_id               0
+items_count           0
+steam_id              0
+user_url              0
+
+![Descripción de la imagen](.\Graficos\nulosdspitems.png)
+
+
+Al observar que había user_id que no poseía juegos (112 user_id diferentes) elegí eliminar directamente esos nulos con un dropna 
+
+
+
+Acá podemos observar la cantidad de horas jugadas por género en cuanto a una suma total de todos los usuarios
+
+
+![Descripción de la imagen](./Graficos\Horasxgenero.png)
+
+Éste análisis de inicio, tanto como la parte de desarrollo de nuestros datos en crudo y nuestro EDA, contextualizan todos los objetivos presentados por la empresa Steam Games, esperamos haya sido de su agrado.
+
+
+# Autor:
+*** Gerardo José Cortijo Regalo ***
+ +[GitHub](https://github.com/Gerard175dnb)
++ [Linkedin](https://www.linkedin.com/in/gerardocor175/)
