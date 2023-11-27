@@ -6,20 +6,23 @@ from fastapi import FastAPI
 from scipy.sparse import csr_matrix
 import pickle
 from funciones import get_recommendation, get_playtime_by_genre , get_user_by_genre, get_users_recommend, sentiment_analysis, get_worst_developer
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
-  # Asegúrate de ajustar la ruta de importación según tu estructura de directorios
+
+
+
+
+
+
 
 app = FastAPI()
 
-@app.get("/PlayTimeGenre/{genero}")
-def PlayTimeGenre(genero: str):
-    result = get_playtime_by_genre(genero)
-    return result
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-app = FastAPI()
-
-
+@app.get("/favicon.ico")
+async def get_favicon():
+    return FileResponse("static/favicon.ico")
 
 @app.get("/")
 def index():
