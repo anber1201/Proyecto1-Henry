@@ -12,6 +12,8 @@ Se realizaron algunas conversiones de tipo de dato con la extensión data wrangl
 
 ### *Importante*
 ### Se realizó el reemplazo de los archivos .json en los datasets originales debido a problemas de memoria con Github
+### Nuestro modelo de ML de recomendación_juego por id_game, devuelve 5 id's de recomendación
+
 
 De encontrar errores al abrir el jupyer notebook por la importacion de módulos, utilizar un entorno normal, se resolvió el problema de espacio de memoria, deployando todo desde un entorno virtual sin librerías instaladas, ya que render al realizar el BuildUp, instala las librerías necesarias.
 En nuestro archivo Requeriments.text, se dejaron los nombres de las librerias utilizadas en éste trabajo, pero cuidado, una gran instalación de librerias que no utilicemos puede derivar en fallos de memoria para render
