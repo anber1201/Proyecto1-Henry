@@ -19,6 +19,7 @@ def index():
 @app.get("/PlayTimeGenre/{genero}")
 def PlayTimeGenre(genero: str):
     df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
+    df_final = df_final[['genres','release_date','playtime_forever']]
     df_filtered = df_final[df_final['genres'] == genero]
     if df_filtered.empty:
         return {"message": f"No data found for genre: {genero}"}
@@ -32,6 +33,7 @@ def PlayTimeGenre(genero: str):
 async def UserForGenre(genero: str):
     try:
         df_final = pd.read_parquet('PIMLops-STEAM/DF_final.parquet')
+        df_final = df_final[['genres','user_id', 'year','playtime_forever']]
         df_filtered = df_final[df_final['genres'] == genero]
         playtime_sum = df_filtered.groupby(['user_id', 'year'])['playtime_forever'].sum() 
         user_max_playtime = playtime_sum.groupby('user_id').sum().idxmax()
@@ -45,6 +47,7 @@ async def UserForGenre(genero: str):
 @app.get("/UsersRecommend/{anio}")
 async def UsersRecommend(año: int):
     ReviewsxGames = pd.read_parquet('PIMLops-STEAM/df_reviewsG.parquet')
+    ReviewsxGames = ReviewsxGames[['developer','year', 'recommend','item_name','sentiment_analysis']]
     df_filtered = ReviewsxGames[(ReviewsxGames['year'] == año) & (ReviewsxGames['recommend'] == True) & (ReviewsxGames['sentiment_analysis'] >= 1)]
     recommend_count = df_filtered['item_name'].value_counts()
     top_3_games = recommend_count.nlargest(3).index.tolist()
@@ -54,6 +57,7 @@ async def UsersRecommend(año: int):
 @app.get("/UsersWorstDeveloper/{anio}")
 async def UsersWorstDeveloper(año: int):
     ReviewsxGames = pd.read_parquet('PIMLops-STEAM/df_reviewsG.parquet')
+    ReviewsxGames = ReviewsxGames[['developer','year', 'recommend','sentiment_analysis']]
     df_filtered = ReviewsxGames[(ReviewsxGames['year'] == año) & (ReviewsxGames['recommend'] == False) & (ReviewsxGames['sentiment_analysis'] == 0)]
     negative_reviews_count = df_filtered['developer'].value_counts()
     top_3_bad_developers = negative_reviews_count.nlargest(3).index.tolist()
@@ -63,6 +67,7 @@ async def UsersWorstDeveloper(año: int):
 @app.get("/sentiment_analysis/{developer}")
 async def sentiment_analysis(developer: str):
     ReviewsxGames = pd.read_parquet('PIMLops-STEAM/df_reviewsG.parquet')
+    ReviewsxGames = ReviewsxGames[['developer', 'sentiment_analysis']]
     df_filtered = ReviewsxGames[ReviewsxGames['developer'] == developer]
     sentiment_count = df_filtered['sentiment_analysis'].value_counts().to_dict()
     result = {developer : ['Negative = ' + str(sentiment_count.get(0, 0)), 'Neutral = ' + str(sentiment_count.get(1, 0)), 'Positive = ' + str(sentiment_count.get(2, 0))]}
